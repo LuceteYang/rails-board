@@ -16,7 +16,10 @@ class HomeController < ApplicationController
     reply = Reply.new
     reply.content = params[:content]
     reply.post_id = params[:id_of_post]
-    reply.save
-    redirect_to "/home/index"
+    if reply.save
+      redirect_to "/home/index"
+    else
+      render :text => post.errors.messages[:title].first
+    end
   end
 end

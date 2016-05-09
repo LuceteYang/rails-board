@@ -44,6 +44,7 @@
     </div>
 </div>
 <script>
+$(function(){
 $(".reply_submit").click(function(){
   post_id = this.value;
   content = $("#content_"+post_id).val();
@@ -51,15 +52,23 @@ $(".reply_submit").click(function(){
   $.ajax({
     method: "POST",
     url: "/home/reply_write",
-    data: { content: content, id_of_post : post_id}
-  })
-    .done(function(msg){
+    data: { content: content, id_of_post : post_id},
+    success: function(){
       $( ".container_"+post_id ).append($("#content_"+post_id).val()+"</br>");
-      // $("#content_"+post_id).attr("placeholder", "");
       $("#content_"+post_id).val("");
-      //alert("리플이 작성되었습니다.")
-      //내용을 바로 써버리는 코드 append
-      //placeholde 내용 지우기 
-    })
+    },
+    error: function(){
+      alert("리플이 작성되지않았습니다.")
+    }
   })
+    // .done(function(msg){
+    //   $( ".container_"+post_id ).append($("#content_"+post_id).val()+"</br>");
+    //   // $("#content_"+post_id).attr("placeholder", "");
+    //   $("#content_"+post_id).val("");
+    //   //alert("리플이 작성되었습니다.")
+    //   //내용을 바로 써버리는 코드 append
+    //   //placeholde 내용 지우기 
+    // })
+  })
+})
 </script>
